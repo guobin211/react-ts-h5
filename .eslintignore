@@ -1,0 +1,6 @@
+.vscode
+.idea
+.history
+build
+dist
+public/libs
