@@ -5,7 +5,7 @@ export interface MtButtonComponentProps {
 }
 
 export interface MtButtonComponentState {
-  initProps?: MtButtonComponentProps
+  initProps?: MtButtonComponentProps;
 }
 
 class MtButtonComponent extends React.Component<MtButtonComponentProps, MtButtonComponentState> {

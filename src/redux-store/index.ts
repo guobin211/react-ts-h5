@@ -1,7 +1,12 @@
 import { combineReducers, createStore } from 'redux';
 import { userInfoReducer } from './user-info';
+import { UserInfoVm } from './user-info/user-info.vm';
 
-const rootReducer = combineReducers({
+export interface RootState {
+  userInfo: UserInfoVm;
+}
+
+const rootReducer = combineReducers<RootState>({
   userInfo: userInfoReducer,
 });
 

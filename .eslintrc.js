@@ -31,6 +31,8 @@ module.exports = {
     },
   },
   rules: {
+    '@typescript-eslint/no-restricted-syntax': 0,
+    'no-restricted-syntax': 0,
     'react/prop-types': 0,
     'line-comment-position': ['error', { position: 'above' }],
     'max-statements': ['error', 80],

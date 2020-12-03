@@ -10,8 +10,7 @@ function tsetTypeCheck(name: string) {
   console.log(name);
 }
 
-const App: React.FC<AppProps> = (props) => {
-  const { className, children, ...restProps } = props;
+const App: React.FC<AppProps> = () => {
   /**
    * 订阅数据, 2
    */
@@ -22,6 +21,9 @@ const App: React.FC<AppProps> = (props) => {
 
   useEffect(() => {
     const data = reduxStore.getState();
+    for (const num of [1, 2, 3]) {
+      console.log(num);
+    }
     // 1
     console.log('useEffect', data.userInfo);
     // 同步更改数据
@@ -35,7 +37,12 @@ const App: React.FC<AppProps> = (props) => {
     };
   }, [subs]);
 
-  return <div {...restProps}> App {children} </div>;
+  return (
+    <div>
+      App
+      <div>UserProfile</div>
+    </div>
+  );
 };
 
 export default App;
