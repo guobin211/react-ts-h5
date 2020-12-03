@@ -8,3 +8,5 @@ dist
 node-modules
 *.json
 postcss.config.js
+.eslintrc.js
+*env.d.ts

@@ -7,5 +7,5 @@ export class UserInfoVm {
 
 export enum UserInfoAction {
   RESET,
-  UPDATE
+  UPDATE,
 }

@@ -3,7 +3,11 @@ import { reduxStore } from './redux-store';
 import { UserInfoAction } from './redux-store/user-info/user-info.vm';
 
 export interface AppProps {
-  className?: string
+  className?: string;
+}
+
+function tsetTypeCheck(name: string) {
+  console.log(name);
 }
 
 const App: React.FC<AppProps> = (props) => {
@@ -21,19 +25,17 @@ const App: React.FC<AppProps> = (props) => {
     // 1
     console.log('useEffect', data.userInfo);
     // 同步更改数据
-    reduxStore.dispatch({type: UserInfoAction.UPDATE, data: { userName: 'jack'}});
+    reduxStore.dispatch({ type: UserInfoAction.UPDATE, data: { userName: 'jack' } });
     // 3
     console.log('dispatch', reduxStore.getState());
-
+    tsetTypeCheck('12');
     return () => {
       // 取消订阅
       subs();
-    }
+    };
   }, [subs]);
 
-  return (
-      <div {...restProps}> App {children} </div>
-  );
+  return <div {...restProps}> App {children} </div>;
 };
 
 export default App;
