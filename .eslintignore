@@ -1,0 +1,10 @@
+public
+scripts
+config
+build
+dist
+.idea
+.vscode
+node-modules
+*.json
+postcss.config.js

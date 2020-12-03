@@ -4,3 +4,8 @@
 
 本地开发配置文件 .env.development.local
 
+## redux全局状态管理
+
+## routes配置路由
+
+

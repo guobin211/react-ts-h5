@@ -31,16 +31,16 @@ const appPackageJson = require(paths.appPackageJson);
 let shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
 const webpackDevClientEntry = require.resolve(
-    'react-dev-utils/webpackHotDevClient',
+  'react-dev-utils/webpackHotDevClient',
 );
 const reactRefreshOverlayEntry = require.resolve(
-    'react-dev-utils/refreshOverlayInterop',
+  'react-dev-utils/refreshOverlayInterop',
 );
 
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 
 const imageInlineSizeLimit = parseInt(
-    process.env.IMAGE_INLINE_SIZE_LIMIT || '10000',
+  process.env.IMAGE_INLINE_SIZE_LIMIT || '10000',
 );
 
 const useTypeScript = fs.existsSync(paths.appTsConfig);
@@ -77,24 +77,17 @@ module.exports = function (webpackEnv) {
       isEnvDevelopment && require.resolve('style-loader'),
       isEnvProduction && {
         loader: MiniCssExtractPlugin.loader,
-        // css is located in `static/css`, use '../../' to locate index.html folder
-        // in production `paths.publicUrlOrPath` can be a relative path
         options: paths.publicUrlOrPath.startsWith('.')
-            ? { publicPath: '../../' }
-            : {},
+          ? { publicPath: '../../' }
+          : {},
       },
       {
         loader: require.resolve('css-loader'),
         options: cssOptions,
       },
       {
-        // Options for PostCSS as we reference these options twice
-        // Adds vendor prefixing based on your specified browser support in
-        // package.json
         loader: require.resolve('postcss-loader'),
         options: {
-          // Necessary for external CSS imports to work
-          // https://github.com/facebook/create-react-app/issues/2677
           ident: 'postcss',
           plugins: () => [
             require('postcss-flexbugs-fixes'),
@@ -104,9 +97,6 @@ module.exports = function (webpackEnv) {
               },
               stage: 3,
             }),
-            // Adds PostCSS Normalize as the reset css with default options,
-            // so that it honors browserslist config in package.json
-            // which in turn let's users customize the target behavior as per their needs.
             postcssNormalize(),
           ],
           sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
@@ -115,19 +105,19 @@ module.exports = function (webpackEnv) {
     ].filter(Boolean);
     if (preProcessor) {
       loaders.push(
-          {
-            loader: require.resolve('resolve-url-loader'),
-            options: {
-              sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
-              root: paths.appSrc,
-            },
+        {
+          loader: require.resolve('resolve-url-loader'),
+          options: {
+            sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+            root: paths.appSrc,
           },
-          {
-            loader: require.resolve(preProcessor),
-            options: {
-              sourceMap: true,
-            },
+        },
+        {
+          loader: require.resolve(preProcessor),
+          options: {
+            sourceMap: true,
           },
+        },
       );
     }
     return loaders;
@@ -137,48 +127,48 @@ module.exports = function (webpackEnv) {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     bail: isEnvProduction,
     entry:
-        isEnvDevelopment && !shouldUseReactRefresh
-            ? [
-              // Include an alternative client for WebpackDevServer. A client's job is to
-              // connect to WebpackDevServer by a socket and get notified about changes.
-              // When you save a file, the client will either apply hot updates (in case
-              // of CSS changes), or refresh the page (in case of JS changes). When you
-              // make a syntax error, this client will display a syntax error overlay.
-              // Note: instead of the default WebpackDevServer client, we use a custom one
-              // to bring better experience for Create React App users. You can replace
-              // the line below with these two lines if you prefer the stock client:
-              //
-              // require.resolve('webpack-dev-server/client') + '?/',
-              // require.resolve('webpack/hot/dev-server'),
-              //
-              // When using the experimental react-refresh integration,
-              // the webpack plugin takes care of injecting the dev client for us.
-              webpackDevClientEntry,
-              // Finally, this is your app's code:
-              paths.appIndexJs,
-              // We include the app code last so that if there is a runtime error during
-              // initialization, it doesn't blow up the WebpackDevServer client, and
-              // changing JS code would still trigger a refresh.
-            ]
-            : paths.appIndexJs,
+      isEnvDevelopment && !shouldUseReactRefresh
+        ? [
+          // Include an alternative client for WebpackDevServer. A client's job is to
+          // connect to WebpackDevServer by a socket and get notified about changes.
+          // When you save a file, the client will either apply hot updates (in case
+          // of CSS changes), or refresh the page (in case of JS changes). When you
+          // make a syntax error, this client will display a syntax error overlay.
+          // Note: instead of the default WebpackDevServer client, we use a custom one
+          // to bring better experience for Create React App users. You can replace
+          // the line below with these two lines if you prefer the stock client:
+          //
+          // require.resolve('webpack-dev-server/client') + '?/',
+          // require.resolve('webpack/hot/dev-server'),
+          //
+          // When using the experimental react-refresh integration,
+          // the webpack plugin takes care of injecting the dev client for us.
+          webpackDevClientEntry,
+          // Finally, this is your app's code:
+          paths.appIndexJs,
+          // We include the app code last so that if there is a runtime error during
+          // initialization, it doesn't blow up the WebpackDevServer client, and
+          // changing JS code would still trigger a refresh.
+        ]
+        : paths.appIndexJs,
     output: {
       path: isEnvProduction ? paths.appBuild : undefined,
       pathinfo: isEnvDevelopment,
       filename: isEnvProduction
-          ? 'static/js/[name].[contenthash:8].js'
-          : isEnvDevelopment && 'static/js/bundle.js',
+        ? 'static/js/[name].[contenthash:8].js'
+        : isEnvDevelopment && 'static/js/bundle.js',
       futureEmitAssets: true,
       chunkFilename: isEnvProduction
-          ? 'static/js/[name].[contenthash:8].chunk.js'
-          : isEnvDevelopment && 'static/js/[name].chunk.js',
+        ? 'static/js/[name].[contenthash:8].chunk.js'
+        : isEnvDevelopment && 'static/js/[name].chunk.js',
       publicPath: paths.publicUrlOrPath,
       devtoolModuleFilenameTemplate: isEnvProduction
-          ? info =>
-              path
-              .relative(paths.appSrc, info.absoluteResourcePath)
-              .replace(/\\/g, '/')
-          : isEnvDevelopment &&
-          (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
+        ? info =>
+          path
+          .relative(paths.appSrc, info.absoluteResourcePath)
+          .replace(/\\/g, '/')
+        : isEnvDevelopment &&
+        (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
       jsonpFunction: `webpackJsonp${appPackageJson.name}`,
       globalObject: 'this',
     },
@@ -194,6 +184,24 @@ module.exports = function (webpackEnv) {
     },
     performance: false,
   };
+
+  // 注入script和环境变量
+  let injectScripts = `<script>
+    window.environment = ${JSON.stringify(env.raw)};
+    if (!window.location.origin) {
+      if (window.location.port) {
+          window.location.origin = window.location.protocol + '//' + window.location.hostname + window.location.port;
+      } else {
+        window.location.origin = window.location.protocol + '//' + window.location.hostname
+      }
+    }
+    function onCdnError(name) {
+      const script = document.createElement('script');
+      script.src = window.location.origin + window.environment.PUBLIC_URL + name + '.js';
+      document.head.appendChild(script);
+    }
+  </script>`;
+
   // 线上正式环境的配置
   if (isOnlineProduction) {
     // 关闭source-map
@@ -203,17 +211,24 @@ module.exports = function (webpackEnv) {
       'react': 'React',
       'react-dom': 'ReactDOM',
       'react-router-dom': 'ReactRouterDOM',
-      'react-redux': 'ReactRedux',
     };
+    injectScripts += `<script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.production.min.js"
+          onerror="onCdnError('/umd/react')"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.production.min.js"
+          onerror="onCdnError('/umd/react-dom')"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/react-router-dom/5.2.0/react-router-dom.min.js" async
+          onerror="onCdnError('/umd/react-router-dom')"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/core-js/3.6.5/minified.min.js" async
+          onerror="onCdnError('/umd/core-js')"></script>`;
   }
 
   return {
     ...baseConfig,
     devtool: isEnvProduction
-        ? shouldUseSourceMap
-            ? 'source-map'
-            : false
-        : isEnvDevelopment && 'cheap-module-source-map',
+      ? shouldUseSourceMap
+        ? 'source-map'
+        : false
+      : isEnvDevelopment && 'cheap-module-source-map',
     optimization: {
       minimize: isEnvProduction,
       minimizer: [
@@ -245,11 +260,11 @@ module.exports = function (webpackEnv) {
           cssProcessorOptions: {
             parser: safePostCssParser,
             map: shouldUseSourceMap
-                ? {
-                  inline: false,
-                  annotation: true,
-                }
-                : false,
+              ? {
+                inline: false,
+                annotation: true,
+              }
+              : false,
           },
           cssProcessorPluginOptions: {
             preset: ['default', { minifyFontValues: { removeQuotes: false } }],
@@ -266,7 +281,7 @@ module.exports = function (webpackEnv) {
     },
     resolve: {
       modules: ['node_modules', paths.appNodeModules].concat(
-          modules.additionalModulePaths || [],
+        modules.additionalModulePaths || [],
       ),
       extensions: paths.moduleFileExtensions
       .map(ext => `.${ext}`)
@@ -321,7 +336,7 @@ module.exports = function (webpackEnv) {
               loader: require.resolve('babel-loader'),
               options: {
                 customize: require.resolve(
-                    'babel-preset-react-app/webpack-overrides',
+                  'babel-preset-react-app/webpack-overrides',
                 ),
                 presets: [
                   [
@@ -339,7 +354,7 @@ module.exports = function (webpackEnv) {
                       loaderMap: {
                         svg: {
                           ReactComponent:
-                              '@svgr/webpack?-svgo,+titleProp,+ref![path]',
+                            '@svgr/webpack?-svgo,+titleProp,+ref![path]',
                         },
                       },
                     },
@@ -380,8 +395,8 @@ module.exports = function (webpackEnv) {
               use: getStyleLoaders({
                 importLoaders: 1,
                 sourceMap: isEnvProduction
-                    ? shouldUseSourceMap
-                    : isEnvDevelopment,
+                  ? shouldUseSourceMap
+                  : isEnvDevelopment,
               }),
               sideEffects: true,
             },
@@ -390,8 +405,8 @@ module.exports = function (webpackEnv) {
               use: getStyleLoaders({
                 importLoaders: 1,
                 sourceMap: isEnvProduction
-                    ? shouldUseSourceMap
-                    : isEnvDevelopment,
+                  ? shouldUseSourceMap
+                  : isEnvDevelopment,
                 modules: {
                   getLocalIdent: getCSSModuleLocalIdent,
                 },
@@ -401,29 +416,29 @@ module.exports = function (webpackEnv) {
               test: sassRegex,
               exclude: sassModuleRegex,
               use: getStyleLoaders(
-                  {
-                    importLoaders: 3,
-                    sourceMap: isEnvProduction
-                        ? shouldUseSourceMap
-                        : isEnvDevelopment,
-                  },
-                  'sass-loader',
+                {
+                  importLoaders: 3,
+                  sourceMap: isEnvProduction
+                    ? shouldUseSourceMap
+                    : isEnvDevelopment,
+                },
+                'sass-loader',
               ),
               sideEffects: true,
             },
             {
               test: sassModuleRegex,
               use: getStyleLoaders(
-                  {
-                    importLoaders: 3,
-                    sourceMap: isEnvProduction
-                        ? shouldUseSourceMap
-                        : isEnvDevelopment,
-                    modules: {
-                      getLocalIdent: getCSSModuleLocalIdent,
-                    },
+                {
+                  importLoaders: 3,
+                  sourceMap: isEnvProduction
+                    ? shouldUseSourceMap
+                    : isEnvDevelopment,
+                  modules: {
+                    getLocalIdent: getCSSModuleLocalIdent,
                   },
-                  'sass-loader',
+                },
+                'sass-loader',
               ),
             },
             {
@@ -439,29 +454,30 @@ module.exports = function (webpackEnv) {
     },
     plugins: [
       new HtmlWebpackPlugin(
-          Object.assign(
-              {},
-              {
-                inject: true,
-                template: paths.appHtml,
+        Object.assign(
+          {},
+          {
+            inject: true,
+            template: paths.appHtml,
+            injectScripts,
+          },
+          isEnvProduction
+            ? {
+              minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
               },
-              isEnvProduction
-                  ? {
-                    minify: {
-                      removeComments: true,
-                      collapseWhitespace: true,
-                      removeRedundantAttributes: true,
-                      useShortDoctype: true,
-                      removeEmptyAttributes: true,
-                      removeStyleLinkTypeAttributes: true,
-                      keepClosingSlash: true,
-                      minifyJS: true,
-                      minifyCSS: true,
-                      minifyURLs: true,
-                    },
-                  }
-                  : undefined,
-          ),
+            }
+            : undefined,
+        ),
       ),
       isEnvProduction &&
       shouldInlineRuntimeChunk &&
@@ -496,7 +512,7 @@ module.exports = function (webpackEnv) {
             return manifest;
           }, seed);
           const entrypointFiles = entrypoints.main.filter(
-              fileName => !fileName.endsWith('.map'),
+            fileName => !fileName.endsWith('.map'),
           );
 
           return {
@@ -522,11 +538,11 @@ module.exports = function (webpackEnv) {
         async: isEnvDevelopment,
         checkSyntacticErrors: true,
         resolveModuleNameModule: process.versions.pnp
-            ? `${__dirname}/pnpTs.js`
-            : undefined,
+          ? `${__dirname}/pnpTs.js`
+          : undefined,
         resolveTypeReferenceDirectiveModule: process.versions.pnp
-            ? `${__dirname}/pnpTs.js`
-            : undefined,
+          ? `${__dirname}/pnpTs.js`
+          : undefined,
         tsconfig: paths.appTsConfig,
         reportFiles: [
           '../**/src/**/*.{ts,tsx}',
@@ -556,6 +572,6 @@ module.exports = function (webpackEnv) {
           },
         },
       }),
-    ].filter(Boolean)
+    ].filter(Boolean),
   };
 };
