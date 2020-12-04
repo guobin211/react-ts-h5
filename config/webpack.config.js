@@ -24,6 +24,7 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const { injectScripts } = require('./umd');
 
 const postcssNormalize = require('postcss-normalize');
 const appPackageJson = require(paths.appPackageJson);
@@ -186,42 +187,18 @@ module.exports = function (webpackEnv) {
     performance: false,
   };
 
-  // 注入script和环境变量
-  let injectScripts = `<script>
-    window.environment = ${JSON.stringify(env.raw)};
-    if (!window.location.origin) {
-      if (window.location.port) {
-          window.location.origin = window.location.protocol + '//' + window.location.hostname + window.location.port;
-      } else {
-        window.location.origin = window.location.protocol + '//' + window.location.hostname
-      }
-    }
-    function onCdnError(name) {
-      const script = document.createElement('script');
-      script.src = window.location.origin + window.environment.PUBLIC_URL + name + '.js';
-      document.head.appendChild(script);
-    }
-  </script>`;
-
-  // 线上正式环境的配置
-  if (isOnlineProduction) {
-    // 关闭source-map
-    shouldUseSourceMap = false;
-    // 使用CDN库
+  // build时使用CDN库
+  if (isEnvProduction) {
     baseConfig.externals = {
       'react': 'React',
       'react-dom': 'ReactDOM',
       'react-router-dom': 'ReactRouterDOM',
     };
-    injectScripts += `<script src="https://cdn.bootcdn.net/ajax/libs/core-js/3.6.5/minified.min.js"
-          onerror="onCdnError('/umd/core-js')"></script>
-          <script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.production.min.js"
-          onerror="onCdnError('/umd/react')"></script>
-  <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.production.min.js"
-          onerror="onCdnError('/umd/react-dom')"></script>
-  <script src="https://cdn.bootcdn.net/ajax/libs/react-router-dom/5.2.0/react-router-dom.min.js" async
-          onerror="onCdnError('/umd/react-router-dom')"></script>
-  `;
+  }
+  // 线上正式环境的配置
+  if (isOnlineProduction) {
+    // 关闭source-map
+    shouldUseSourceMap = false;
   }
 
   return {

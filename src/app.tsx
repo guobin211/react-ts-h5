@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { reduxStore } from './redux-store';
-import { UserInfoAction } from './redux-store/user-info/user-info.vm';
+import MtButtonComponent from 'class-components/mt-button/mt-button.component';
+import { reduxStore } from 'redux-store';
+import { UserInfoAction } from 'redux-store/user-info/user-info.vm';
+import { map } from 'lodash-es';
 
 export interface AppProps {
   className?: string;
@@ -21,9 +23,18 @@ const App: React.FC<AppProps> = () => {
 
   useEffect(() => {
     const data = reduxStore.getState();
+    fetch('https://meeting.tencent.com/wemeet-webapi/v2/account/login/refresh-token')
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     for (const num of [1, 2, 3]) {
       console.log(num);
     }
+
+    console.log(map([1, 2, 3], el => el + 1));
     // 1
     console.log('useEffect', data.userInfo);
     // 同步更改数据
@@ -40,6 +51,7 @@ const App: React.FC<AppProps> = () => {
   return (
     <div>
       App
+      <MtButtonComponent />
       <div>UserProfile</div>
     </div>
   );

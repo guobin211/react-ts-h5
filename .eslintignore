@@ -10,3 +10,4 @@ node-modules
 postcss.config.js
 .eslintrc.js
 *env.d.ts
+setupProxy.js
