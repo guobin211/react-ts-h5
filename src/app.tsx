@@ -8,7 +8,7 @@ export interface AppProps {
   className?: string;
 }
 
-function tsetTypeCheck(name: string) {
+function testTypeCheck(name: string) {
   console.log(name);
 }
 
@@ -41,7 +41,7 @@ const App: React.FC<AppProps> = () => {
     reduxStore.dispatch({ type: UserInfoAction.UPDATE, data: { userName: 'jack' } });
     // 3
     console.log('dispatch', reduxStore.getState());
-    tsetTypeCheck('12');
+    testTypeCheck('12');
     return () => {
       // 取消订阅
       subs();
