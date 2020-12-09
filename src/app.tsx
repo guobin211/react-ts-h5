@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import MtButtonComponent from 'class-components/mt-button/mt-button.component';
-import { reduxStore } from 'redux-store';
-import { UserInfoAction } from 'redux-store/user-info/user-info.vm';
+import { reduxStore } from 'storage';
+import { UserInfoAction } from 'storage/user-info/user-info.vm';
 import { map } from 'lodash-es';
 
 export interface AppProps {
