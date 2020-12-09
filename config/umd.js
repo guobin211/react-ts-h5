@@ -27,6 +27,16 @@ const umdLibs = [
 
 const injectScripts = dependenciesScript.concat(...umdLibs);
 
+function getUMDManifestJson(publicPath) {
+  return {
+    'core-js.js': `${publicPath}static/umd/core-js.js`,
+    'react.js': `${publicPath}static/umd/react.js`,
+    'react-dom.js': `${publicPath}static/umd/react-dom.js`,
+    'react-router-dom': `${publicPath}static/umd/react-router-dom.js`
+  }
+}
+
 module.exports = {
-  injectScripts
+  injectScripts,
+  getUMDManifestJson
 }
