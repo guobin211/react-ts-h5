@@ -4,8 +4,3 @@ export class UserInfoVm {
     this.userName = '';
   }
 }
-
-export enum UserInfoAction {
-  RESET,
-  UPDATE,
-}

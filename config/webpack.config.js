@@ -28,7 +28,6 @@ const { injectScripts, getUMDManifestJson } = require('./web.umd');
 const { prefetches, injectPrefetchTag } = require('./web.inject');
 // index.html注入script标签
 const headScript = injectPrefetchTag(prefetches).concat(injectScripts);
-console.log('headScript', headScript);
 const postcssNormalize = require('postcss-normalize');
 const appPackageJson = require(paths.appPackageJson);
 

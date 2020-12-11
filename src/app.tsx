@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import MtButtonComponent from 'class-components/mt-button/mt-button.component';
-import { reduxStore } from 'storage';
-import { UserInfoAction } from 'storage/user-info/user-info.vm';
-import { map } from 'lodash-es';
+import { RootStore } from 'storage';
+import { UserInfoAction } from 'storage/user-info/user-info.action';
 
 export interface AppProps {
   className?: string;
@@ -16,31 +15,19 @@ const App: React.FC<AppProps> = () => {
   /**
    * 订阅数据, 2
    */
-  const subs = reduxStore.subscribe(() => {
-    const data = reduxStore.getState();
+  const subs = RootStore.subscribe(() => {
+    const data = RootStore.getState();
     console.log('changed', data);
   });
 
   useEffect(() => {
-    const data = reduxStore.getState();
-    fetch('https://meeting.tencent.com/wemeet-webapi/v2/account/login/refresh-token')
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    for (const num of [1, 2, 3]) {
-      console.log(num);
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const data = RootStore.getState();
 
-    console.log(map([1, 2, 3], el => el + 1));
     // 1
-    console.log('useEffect', data.userInfo);
     // 同步更改数据
-    reduxStore.dispatch({ type: UserInfoAction.UPDATE, data: { userName: 'jack' } });
+    RootStore.dispatch({ type: UserInfoAction.UPDATE, data: { userName: 'jack' } });
     // 3
-    console.log('dispatch', reduxStore.getState());
     testTypeCheck('12');
     return () => {
       // 取消订阅

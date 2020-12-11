@@ -1,4 +1,5 @@
-import { UserInfoAction, UserInfoVm } from './user-info.vm';
+import { UserInfoVm } from './user-info.vm';
+import { UserInfoAction } from './user-info.action';
 
 const userInfo = new UserInfoVm();
 

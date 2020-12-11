@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import MtButtonComponent from 'class-components/mt-button/mt-button.component';
 
 const Home: React.FC = () => {
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
   return (
-    <div>Home Page
-        <div>
-          <MtButtonComponent/>
-        </div>
+    <div>
+      Home Page
+      <div>
+        <MtButtonComponent />
+      </div>
     </div>
   );
 };
