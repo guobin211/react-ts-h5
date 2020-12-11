@@ -19,7 +19,7 @@ const dependenciesScript = `<script>
   </script>`;
 
 const umdLibs = [
-  `<script src="https://cdn.bootcdn.net/ajax/libs/core-js/3.6.5/minified.min.js" onError="onCdnError('/umd/core-js')"></script>`,
+  `<script src="https://cdn.bootcdn.net/ajax/libs/core-js/3.6.5/minified.min.js" onerror="onCdnError('/umd/core-js')"></script>`,
   `<script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.production.min.js" onerror="onCdnError('/umd/react')"></script>`,
   `<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.production.min.js" onerror="onCdnError('/umd/react-dom')"></script>`,
   `<script src="https://cdn.bootcdn.net/ajax/libs/react-router-dom/5.2.0/react-router-dom.min.js" async onerror="onCdnError('/umd/react-router-dom')"></script>`

@@ -24,8 +24,11 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const { injectScripts, getUMDManifestJson } = require('./umd');
-
+const { injectScripts, getUMDManifestJson } = require('./web.umd');
+const { prefetches, injectPrefetchTag } = require('./web.inject');
+// index.html注入script标签
+const headScript = injectPrefetchTag(prefetches).concat(injectScripts);
+console.log('headScript', headScript);
 const postcssNormalize = require('postcss-normalize');
 const appPackageJson = require(paths.appPackageJson);
 
@@ -420,7 +423,7 @@ module.exports = function (webpackEnv) {
           {
             inject: true,
             template: paths.appHtml,
-            injectScripts,
+            injectScripts: headScript,
           },
           isEnvProduction
             ? {
