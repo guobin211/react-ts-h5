@@ -27,6 +27,7 @@ const App: React.FC<AppProps> = () => {
     // 1
     // 同步更改数据
     RootStore.dispatch({ type: UserInfoAction.UPDATE, data: { userName: 'jack' } });
+    RootStore.dispatch({ type: UserInfoAction.UPDATE, data: { userName: 'jack' } });
     // 3
     testTypeCheck('12');
     return () => {
@@ -34,7 +35,7 @@ const App: React.FC<AppProps> = () => {
       subs();
     };
   }, [subs]);
-
+  console.log('app render');
   return (
     <div>
       App

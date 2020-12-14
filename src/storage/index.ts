@@ -1,5 +1,5 @@
 import { combineReducers, createStore, applyMiddleware, compose, Middleware } from 'redux';
-import { userInfoReducer } from './user-info';
+import { userInfoReducer } from './user-info/user-info.reducer';
 import { UserInfoVm } from './user-info/user-info.vm';
 import { changeLog } from './plugins/change-log';
 

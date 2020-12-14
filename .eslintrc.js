@@ -6,10 +6,7 @@ module.exports = {
     jest: true,
     node: true,
   },
-  extends: [
-    '@tencent/eslint-config-tencent',
-    '@tencent/eslint-config-tencent/ts'
-  ],
+  extends: ['@tencent/eslint-config-tencent', '@tencent/eslint-config-tencent/ts'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -32,11 +29,12 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-restricted-syntax': 0,
+    '@typescript-eslint/indent': 0,
     'no-restricted-syntax': 0,
     'react/prop-types': 0,
     'line-comment-position': ['error', { position: 'above' }],
     'max-statements': ['error', 80],
     'max-depth': ['error', 8],
     'max-len': ['error', { code: 500 }],
-  }
+  },
 };
