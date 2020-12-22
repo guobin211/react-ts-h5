@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import MtButtonComponent from 'class-components/mt-button/mt-button.component';
 import { RootStore } from 'storage';
 import { UserInfoAction } from 'storage/user-info/user-info.action';
+import WebBase from '@tencent/web-base';
+import MtButton from './class-components/mt-button/mt-button.component';
 
 export interface AppProps {
   className?: string;
@@ -24,6 +25,12 @@ const App: React.FC<AppProps> = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const data = RootStore.getState();
 
+    if (WebBase.isMobile()) {
+      console.log('isMobile');
+    } else {
+      console.log('not Mobile');
+    }
+
     // 1
     // 同步更改数据
     RootStore.dispatch({ type: UserInfoAction.UPDATE, data: { userName: 'jack' } });
@@ -39,7 +46,7 @@ const App: React.FC<AppProps> = () => {
   return (
     <div>
       App
-      <MtButtonComponent />
+      <MtButton />
       <div>UserProfile</div>
     </div>
   );

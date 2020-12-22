@@ -15,7 +15,7 @@
   "homepage": "",
   "description": "React TypeScript 项目模板",
   "dependencies": {
-    "@types/redux-logger": "^3.0.8",
+    "@tencent/web-base": "^0.1.0",
     "ahooks": "^2.9.2",
     "classnames": "^2.2.6",
     "lodash-es": "^4.17.15",
@@ -39,6 +39,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.4.0",
     "@types/classnames": "^2.2.11",
+    "@types/redux-logger": "^3.0.8",
     "@types/jest": "^26.0.16",
     "@types/lodash-es": "^4.17.3",
     "@types/node": "^12.19.8",
